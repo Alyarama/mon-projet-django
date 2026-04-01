@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <title>CodePen - Products Dashboard UI</title>
+
+ <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>   <!-- partial:index.partial.html -->
+
+    {% include "Produits/zone_gauche.html" %}
+
+
+    <div class="app-content">
+        {% include "Produits/header.html" %}
+        {% include "Produits/header2.html" %}
+        
+        {% block produit %}
+        {% endblock produit %}
+
+    </div>
+
+</body>
+<!-- partial -->
+ <script src="https://code.jquery.com/jquery-4.0.0.js" integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U=" crossorigin="anonymous"></script>
+  <script  src="{% static 'script.js' %}"></script>
+  <script src="{% static 'bootstrap.min.js'%}"></script>
+
+</body>
+</html>

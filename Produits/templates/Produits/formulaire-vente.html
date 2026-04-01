@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vente de produit</title>
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'boostrap.min.css' %}">
+
+    <style>
+        /* Quelques améliorations visuelles légères */
+        body {
+            background-color: #f7f9fc;
+        }
+        .card {
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102,126,234,0.5);
+        }
+        .text-dander {
+            font-size: 0.9em;
+            color: red;
+        }
+        .btn-primary {
+            border-radius: 8px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid px-3 py-5 mx-auto">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-6 col-lg-7 col-md-8 col-12 mx-auto d-flex flex-column align-items-center">
+                
+                <!-- Texte centré -->
+                <div class="text-container mb-4 text-center">
+                    <h3>Vendre le produit</h3>
+                    <p class="blue-text">Veuillez noter que tous les champs sont obligatoires.</p>
+                </div>
+
+                <!-- Formulaire dans une card -->
+                <div class="card w-100">
+                    <h5 class="text-center mb-4">Gestion Pharma</h5>
+                    <form method="POST" class="form-card">
+                        {% csrf_token %}
+
+                        <!-- Messages Django -->
+                        {% if messages %}
+                        <ul class="messages mb-3">
+                            {% for message in messages %}
+                                <li {% if message.tags %} class="{{ message.tags }}" {% endif %} style="color: rgb(236, 24, 24);">
+                                    {{ message }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                        <!-- Nom du client -->
+                        <div class="mb-3">
+                            <label class="form-control-label">Nom du client <span class="text-danger">*</span></label>
+                            {{ form.customer }}
+                            <div class="text-dander">
+                                {{ form.customer.errors }}
+                            </div>
+                        </div>
+
+                        <!-- Quantité du produit -->
+                        <div class="mb-3">
+                            <label class="form-control-label">Quantité <span class="text-danger">*</span></label>
+                            {{ form.quantite }}
+                            <div class="text-dander">
+                                {{ form.quantite.errors }}
+                            </div>
+                        </div>
+
+                        <!-- Bouton d'envoi -->
+                        <div class="row justify-content-end">
+                            <input type="submit" class="btn btn-primary w-100" value="Enregistrer">
+                        </div>
+
+                    </form>
+                </div> <!-- fin card -->
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'script.js' %}"></script>
+    <script src="{% static 'script2.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+{% extends "Produits/base.html" %}
+{% load static  %}  
+{% block produit %} 
+ {% if messages %}
+  <ul class="messages">
+     {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}" {% endif%} style="color: rgb(21, 213, 98);">
+              {{message}}                               
+          </li>
+     {% endfor %}
+    </ul>
+{% endif %}
+{% if n.quantite == 0 %}
+   <a href="{% url 'ajout' %}">
+    <h3 style="color: red;">Le produit {{n.name}} n'est pas disponible</h3>
+        <button class="app-content-headerButton"><i class="bi bi-plus-square-fill"></i></button>Ajout {{n.name}}</button>    
+      </a>
+    {% elif n.quantite <= 5 %}
+        <h3 style="color: yellow;">Le stock du produit {{n.name}} est bas !!!</h3>
+
+      <a href="{% url 'ajoutvente' n.id %}">
+        <button class="app-content-headerButton"><i class="bi bi-plus-square-fill"></i></button>ventre {{n.name}}</button>    
+      </a>
+      {% else %}
+          <h3 style="color: green;">Le produit peut etre vendu</h3>
+
+        <a href="{% url 'ajoutvente' n.id %}">
+        <button class="app-content-headerButton"><i class="bi bi-plus-square-fill"></i></button>Ajout {{n.name}}</button>    
+      </a>
+{% endif %}
+<h1 style="color:white;">Voir les details du produit <span style="color: brown;">{{n.id}}</span> </h1>
+<div class="products-area-wrapper tableView">
+  <style>
+    .button{
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+
+    }
+    .red{
+      background-color: red;
+    }
+    .orange{
+      background-color: orange;
+    }
+    .green{
+      background-color: green;
+    }
+  </style> 
+      <div class="products-header">
+        <div class="product-cell image">
+          Nom Produit
+          <button class="sort-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+          </button>
+        </div>
+        <div class="product-cell category">Categories<button class="sort-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+          </button></div>
+        <div class="product-cell status-cell">Status et quantite<button class="sort-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+          </button></div>
+        <div class="product-cell sales">Prix<button class="sort-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+          </button></div>
+        <div class="product-cell stock">Description<button class="sort-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+          </button></div>
+        <div class="product-cell price">Date Ajout<button class="sort-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+          </button></div>
+         <div class="product-cell price">Date Expiration<button class="sort-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/></svg>
+          </button></div>
+       
+      </div>
+       
+
+      <div class="products-row" id="produit-{{n.id}}">
+        <button class="cell-more-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+        </button>
+          <div class="product-cell image">
+            {%if n.image%}
+            <img src="{{n.image.url}}" alt="product">
+            {% else %}
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="product img">
+
+            {% endif %}
+
+
+            <span>{{n.name}}</span>
+          </div>
+        <div class="product-cell category"><span class="cell-label">Category:</span>{{n.category}}</div>
+        <div class="product-cell status-cell">
+          <span class="cell-label">Status:</span>
+          <span class="status active"><button class="button {{n.statut_quantite}}"></button>{{n.quantite}}</span>
+        </div>
+        <div class="product-cell sales"><span class="cell-label">Price:</span>{{n.price}}</div>
+        <div class="product-cell stock"><span class="cell-label">Description:</span>{{n.description}}</div>
+        <div class="product-cell price"><span class="cell-label">Date Ajout:</span>{{n.date_ajout}}</div>
+        <div class="product-cell price"><span class="cell-label">Date expiration:</span>{{n.date_expiration}}</div>
+      
+       
+      </div>
+   </div>   
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+// 🔴 CSRF (obligatoire avec Django)
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        let cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+var csrftoken = getCookie('csrftoken');
+
+
+// 🔥 CLICK DELETE
+$(document).on('click', '.delete-button', function(e){
+
+  e.preventDefault();
+
+  var produitID = $(this).data("id");
+
+  Swal.fire({
+    title: "Supprimer ce produit ?",
+    text: "Cette action est irréversible !",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#e74c3c",
+    cancelButtonColor: "#3498db",
+    confirmButtonText: "Oui, supprimer",
+    cancelButtonText: "Annuler",
+    background: "#1e1e2f",
+    color: "#fff",
+    backdrop: `
+      rgba(0,0,0,0.7)
+    `
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      $.ajax({
+        url: '/supprimer/' + produitID + '/',
+        type: "POST",
+        headers: {
+          'X-CSRFToken': csrftoken
+        },
+        success: function(response){
+          if (response.success){
+
+            $('#produit-' + produitID).remove();
+
+            Swal.fire({
+              title: "Supprimé !",
+              text: "Le produit a été supprimé avec succès.",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false
+            });
+
+          } else {
+            Swal.fire("Erreur", "Suppression échouée", "error");
+          }
+        },
+        error: function(){
+          Swal.fire("Erreur", "Erreur serveur", "error");
+        }
+      });
+
+    }
+
+  });
+
+});
+</script>
+{% endblock produit %}
