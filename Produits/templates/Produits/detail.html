@@ -19,13 +19,13 @@
         <h3 style="color: yellow;">Le stock du produit {{n.name}} est bas !!!</h3>
 
       <a href="{% url 'ajoutvente' n.id %}">
-        <button class="app-content-headerButton"><i class="bi bi-plus-square-fill"></i></button>ventre {{n.name}}</button>    
+        <button class="app-content-headerButton"><i class="bi bi-plus-square-fill"></i></button>vendre {{n.name}}</button>    
       </a>
       {% else %}
           <h3 style="color: green;">Le produit peut etre vendu</h3>
 
         <a href="{% url 'ajoutvente' n.id %}">
-        <button class="app-content-headerButton"><i class="bi bi-plus-square-fill"></i></button>Ajout {{n.name}}</button>    
+        <button class="app-content-headerButton"><i class="bi bi-plus-square-fill"></i></button>Vendre {{n.name}}</button>    
       </a>
 {% endif %}
 <h1 style="color:white;">Voir les details du produit <span style="color: brown;">{{n.id}}</span> </h1>
